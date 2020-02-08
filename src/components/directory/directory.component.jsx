@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import { MenuItem } from '../menu-item/menu-item.component';
+import  MenuItem  from '../menu-item/menu-item.component';
 import './directory.styles.scss';
 class Directory extends Component {
 
@@ -10,29 +10,34 @@ class Directory extends Component {
                 {
                     title: 'Hats',
                     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-                    id: 1
+                    id: 1,
+                    LinkUrl: 'hats'
                 },
                 {
                     title: 'Jackets',
                     imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                    id: 2
+                    id: 2,
+                    LinkUrl: ''
                 },
                 {
                     title: 'Sneakers',
                     imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                    id: 3
+                    id: 3,
+                    LinkUrl: ''
                 },
                 {
                     title: 'Womens',
                     imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
                     id: 4,
-                    size: 'large'
+                    size: 'large',
+                    LinkUrl: ''
                 },
                 {
                     title: 'Mens',
                     imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
                     id: 5,
-                    size: 'large'
+                    size: 'large',
+                    LinkUrl: ''
                 }
 
             ]
@@ -40,9 +45,9 @@ class Directory extends Component {
     }
     render(){
 
-        const menuItems = this.state.sections.map(({title,id,imageUrl,size}) => {
+        const menuItems = this.state.sections.map(({id,...otherSectionProperties}) => {
             return(
-                <MenuItem key={id} title={title} imageUrl={imageUrl} size={size}></MenuItem>
+                <MenuItem key={id} {...otherSectionProperties}></MenuItem>
             )
         })
         return(
