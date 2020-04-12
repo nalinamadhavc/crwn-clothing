@@ -38,6 +38,7 @@ class Directory extends Component {
                     id: 5,
                     size: 'large',
                     LinkUrl: ''
+
                 }
 
             ]
