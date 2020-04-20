@@ -40,7 +40,7 @@ class App extends React.Component {
   render() {
     
     return (
-      <div>
+      <div >
         <Header/>
         <Switch>
           <Route exact path="/" component = {HomePage} />
@@ -62,7 +62,7 @@ class App extends React.Component {
   
 }
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
 })
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
