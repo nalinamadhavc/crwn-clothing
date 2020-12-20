@@ -8,7 +8,7 @@ import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 
-const Header = ({currentUser, hidden}) => {
+const Header = ({currentUser, hidden }) => {
     
         
     return(
@@ -44,7 +44,7 @@ const Header = ({currentUser, hidden}) => {
 
 const mapStateToProps = state => ({
     currentUser: state.user.currentUser,
-    hidden: state.cart.hidden
+    hidden: state.cart.hidden,
 })
 
 
