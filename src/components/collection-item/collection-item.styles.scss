@@ -1,5 +1,5 @@
 .collection-item {
-    width: 22%;
+    width: 22vw;
     height: 320px;
     display: flex;
     align-items: center;
@@ -19,14 +19,6 @@
         display: flex;
         justify-content: space-between;
         font-size: 18px;
-        .name {
-            width: 90%;
-           // margin-left: 15px;
-        }
-        .price {
-            width: 5%;
-        }
-
     }
     .custom-button {
         position: absolute;
