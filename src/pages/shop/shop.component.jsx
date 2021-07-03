@@ -2,31 +2,17 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { firestore, convertCollectionsSnapshopToMap } from '../../firebase/firebase.utils';
+import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
 
-import { updateCollections } from '../../redux/shop/shop.actions';
-
-import CollectionPage from '../collection/collection.component';
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import WithSpinner from '../../components/with-spinner/with-spinner.component';
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
-
-const FIRSTORE_URL = 'https://firestore.googleapis.com/v1/projects/crown-db-proj/databases/(default)/documents/';
+import CollectionContainer from '../collection/collection.container';
+import CollectionOverviewWithContainer from '../../components/collections-overview/collections-overview.container';
 
 class ShopPage extends React.Component {
-  state = {
-      loading: true
-    }
-  
-  unsubscribeFromSnapshot = null;
-
 
   componentDidMount() {
-    const { updateCollections } = this.props;
+    const { fetchCollectionsStartAsync } = this.props;
 
-    const collectionRef = firestore.collection('collections');
+    fetchCollectionsStartAsync();
 
     /**
      *  observable pattern
@@ -43,16 +29,16 @@ class ShopPage extends React.Component {
     /**
      * Promiis pattern
      */
-    collectionRef.get().then(async snapshot => {
+    /* collectionRef.get().then(async snapshot => {
       const collection = convertCollectionsSnapshopToMap(snapshot)
       updateCollections((collection));
       this.setState({ loading: false })
-    })
+    }) */
 
     /**
      * Fetch using firestore API
      */
-    /* fetch(FIRSTORE_URL)
+    /* fetch('https://firestore.googleapis.com/v1/projects/crown-db-proj/databases/(default)/documents/')
     .then(response => response.json())
     .then(collections => console.log(collections)); */
 
@@ -60,18 +46,24 @@ class ShopPage extends React.Component {
 
   render() {
     const { match } = this .props;
-    const { loading } = this.state;
+
     return (
       <div className = 'shop-page'>
-        <Route exact path ={`${match.path}`} render={(props) => <CollectionsOverviewWithSpinner isLoading={ loading } {...props} /> } />
-        <Route path={`${match.path}/:collectionId`} render={(props) => <CollectionPageWithSpinner isLoading={ loading } { ...props } /> } />
+        <Route
+          exact path ={`${match.path}`}
+          component={CollectionOverviewWithContainer} 
+        />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionContainer} 
+          />
       </div>  
     )
   }
 } 
 
 const mapDispatchToProps = dispatch => ({
-  updateCollections: (collection) => dispatch(updateCollections(collection))
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
 })
 
 export default connect(null, mapDispatchToProps)(ShopPage);
